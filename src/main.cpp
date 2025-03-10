@@ -47,7 +47,6 @@ int main(int argc, char ** argv)
     }
 
     convert_fastq(config); // Call fastq to fasta converter.
-
     if (config.verbose) // If flag is set.
         std::cerr << "Conversion was a success. Congrats!\n";
 
