@@ -15,10 +15,10 @@ add_definitions (-DDATADIR=\"${CMAKE_CURRENT_BINARY_DIR}/data/\")
 add_definitions (-DBINDIR=\"${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/\")
 
 # Add the test interface library.
-if (NOT TARGET ${PROJECT_NAME}_test)
-    add_library (${PROJECT_NAME}_test INTERFACE)
-    target_link_libraries (${PROJECT_NAME}_test INTERFACE GTest::gtest_main ${PROJECT_NAME}_lib)
-    add_library (${PROJECT_NAME}::test ALIAS ${PROJECT_NAME}_test)
+if (NOT TARGET swp25-tutorial_test)
+    add_library (swp25-tutorial_test INTERFACE)
+    target_link_libraries (swp25-tutorial_test INTERFACE GTest::gtest_main swp25-tutorial_lib)
+    add_library (swp25-tutorial::test ALIAS swp25-tutorial_test)
 endif ()
 
 # Add the check target that builds and runs tests.
@@ -29,9 +29,9 @@ macro (add_app_test test_filename)
     get_filename_component (target "${source_file}" NAME_WE)
 
     add_executable (${target} ${test_filename})
-    target_link_libraries (${target} ${PROJECT_NAME}::test)
+    target_link_libraries (${target} swp25-tutorial::test)
 
-    add_dependencies (${target} ${PROJECT_NAME})
+    add_dependencies (${target} swp25-tutorial)
     add_dependencies (check ${target})
 
     add_test (NAME ${target} COMMAND ${target})
